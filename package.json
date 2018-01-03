@@ -1,0 +1,20 @@
+{
+  "name": "seinfeld",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "elasticsearch": "^14.0.0",
+    "get-json": "^1.0.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
