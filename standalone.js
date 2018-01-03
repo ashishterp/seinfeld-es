@@ -1,16 +1,11 @@
 const request = require('request-promise');
 const cheerio = require('cheerio')
-const client = require('./es.js');
-
+const timeout = ms => new Promise(res => setTimeout(res, ms))
 
 async function doStuff() {
     try {
-        del = await client.indices.delete({ index: 'seinfeld' });
-        create = await
-            client.indices.create({
-                index: 'seinfeld'
-            });
-        for (var ep_num = 1; ep_num <= 176; ep_num++) {
+        for (var ep_num = 150; ep_num <= 176; ep_num++) {
+            await timeout(1000)
             ep_char = ep_num.toString();
             if (ep_num < 10) ep_char = "0" + ep_char
             if (ep_num == 82) {
@@ -41,6 +36,7 @@ async function doStuff() {
             script_text = script_text.replace(/^\s+/gm, "")
             script_array = script_text.split(/\={5,}/)
             script_intro = script_array[0].split(/\n/)
+            console.log(script_intro)
             episode = {
                 title: script_intro[0].split(/\s?\-\s?/)[1],
                 pc: +script_intro[1].split(/\,\s/)[0].split(/\:\s/)[1],
@@ -63,19 +59,10 @@ async function doStuff() {
                 }
             }
 
-            let es_resp = await client.index({
-                index: 'seinfeld',
-                type: 'line',
-                body: episode
-            });
-            //console.log(episode)
-            //console.log(script_array[1])
             script_lines = script_array[1].split(/\n/)
             for (i = 0; i < script_lines.length; i++) {
                 line_info = script_lines[i].split(/\:\s/)
                 if (line_info.length == 2) {
-                    //dialogue
-                    //console.log(line_info[0])
                     char = line_info[0].split("(")
 
                     line = {
@@ -88,11 +75,6 @@ async function doStuff() {
                     else line.actor = "UNKNOWN"
                     line.season = episode.season
                     line.season_episode = episode.season_episode
-                    let es_resp = await client.index({
-                        index: 'seinfeld',
-                        type: 'line',
-                        body: line
-                    });
                     //console.log(match)
                     //console.log(line)
                 }
