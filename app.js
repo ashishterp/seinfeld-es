@@ -10,7 +10,7 @@ async function doStuff() {
             client.indices.create({
                 index: 'seinfeld'
             });
-        for (var ep_num = 39; ep_num <= 176; ep_num++) {
+        for (var ep_num = 1; ep_num <= 176; ep_num++) {
             ep_char = ep_num.toString();
             if (ep_num < 10) ep_char = "0" + ep_char
             console.log("Episode " + ep_char)
