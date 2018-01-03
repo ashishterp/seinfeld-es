@@ -10,7 +10,7 @@ async function doStuff() {
             client.indices.create({
                 index: 'seinfeld'
             });
-        for (var ep_num = 1; ep_num <= 176; ep_num++) {
+        for (var ep_num = 39; ep_num <= 176; ep_num++) {
             ep_char = ep_num.toString();
             if (ep_num < 10) ep_char = "0" + ep_char
             console.log("Episode " + ep_char)
@@ -32,8 +32,8 @@ async function doStuff() {
                 season_episode: +script_intro[1].split(/\,\s/)[2].split(" ")[1],
                 broadcast_date_str: script_intro[2].split(/\:\s?/)[1],
                 broadcast_date: Date.parse(script_intro[2].split(/\:\s?/)[1]),
-                written_by: script_intro[3].split(/By\s/)[1].split(/\s\&\s/),
-                directed_by: script_intro[4].split(/By\s/)[1].split(/\s\&\s/),
+                written_by: script_intro[3].split(/[Bb]y[\s\:]/)[1].split(/\s\&\s/),
+                directed_by: script_intro[4].split(/[Bb]y\s/)[1].split(/\s\&\s/),
                 cast: []
             }
             for (i = 5; i < script_intro.length; i++) {
